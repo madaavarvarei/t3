@@ -90,6 +90,7 @@ app.post('/students', async (req, res) => {
           res.status(400).json({"message": "malformed request"})
    }
       else if(req.body){
+          
           let student=new Student(req.body)
           student.save()
           res.status(201).json({message: "created"})
