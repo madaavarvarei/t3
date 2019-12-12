@@ -73,7 +73,26 @@ app.get('/students', async (req, res) => {
 
 app.post('/students', async (req, res) => {
     try{
-        // TODO
+       if(req.body.age<0)
+       {
+           res.status(400).json({message : "age should be a positive number"})
+       }
+       else if(Object.keys(req.body).length === 0){
+            res.status(400).json({message : "body is missing"})
+       }
+       else if(req.body.name==null){
+             res.status(400).json({"message": "malformed request"})
+    }
+       else if(req.body.address==null){
+            res.status(400).json({"message": "malformed request"})
+      }else if(req.body.age==null){
+          res.status(400).json({"message": "malformed request"})
+   }
+      else if(req.body){
+          let student=new Student(req.body)
+          student.save()
+          res.status(201).json({message: "created"})
+      }
     }
     catch(err){
         console.warn(err.stack)
